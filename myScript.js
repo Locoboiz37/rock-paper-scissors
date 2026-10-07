@@ -26,32 +26,63 @@ function playGame (){
     
     let humanScore=0;
     let computerScore=0;
+    const score = document.querySelector('#score');
+    const results = document.querySelector('#results');
+    const rockButton = document.querySelector('#rock');
+    const paperButton = document.querySelector('#paper');
+    const scissorsButton = document.querySelector('#scissors');
+
 
     function playRound (human,computer) {
         human=human.toLowerCase();
         if (human===computer){
-            console.log('Draw!');
+            results.textContent='Draw!';
         } else if ((human==='rock'&&computer==='scissors')||(human==='scissors'&&computer==='paper')||(human==='paper'&&computer==='rock')){
-            console.log('You win! '+human+' beats '+computer);
+            results.textContent='You win! '+human+' beats '+computer;
             humanScore +=1;
         } else {
-            console.log('You lose! '+computer+' beats '+human);
+            results.textContent='You lose! '+computer+' beats '+human;
             computerScore+=1;
         }
-    
-}
-    playRound(getHumanChoice(),getComputerChoice());
-    playRound(getHumanChoice(),getComputerChoice());
-    playRound(getHumanChoice(),getComputerChoice());
-    playRound(getHumanChoice(),getComputerChoice());
-    playRound(getHumanChoice(),getComputerChoice());
 
-    if (humanScore===computerScore) {
-        console.log('Draw game!');
-    } else if (humanScore > computerScore) {
-        console.log ('Congrats! You win!');
-    } else {
-        console.log ('You lost the game!');
+
+        score.textContent =
+            'Player: ' + humanScore + ' | Computer: ' + computerScore;
+
+        if (humanScore===5) {
+        results.textContent = 'Congrats! You win!';
+        rockButton.disabled = true;
+        paperButton.disabled = true;
+        scissorsButton.disabled = true;
+
+    }   else if (computerScore===5) {
+        results.textContent='Unfortunately! Computer wins!';
+        rockButton.disabled = true;
+        paperButton.disabled = true;
+        scissorsButton.disabled = true;
+
     }
     
 }
+    
+
+    
+
+    rockButton.addEventListener('click', () => {
+        playRound('rock', getComputerChoice());
+    });
+
+    paperButton.addEventListener('click', () => {
+        playRound('paper', getComputerChoice());
+    });
+
+    scissorsButton.addEventListener('click', () => {
+        playRound('scissors', getComputerChoice());
+    });
+   
+    
+    
+
+    
+}
+playGame();
